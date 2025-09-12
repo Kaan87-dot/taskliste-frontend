@@ -1,22 +1,32 @@
-<!-- src/components/TaskItem.vue -->
 <template>
-  <li class="task-item">
-    <h3>{{ task.title }}</h3>
-    <p>{{ task.description }}</p>
-    <label>
-      <input type="checkbox" :checked="task.done" disabled />
-      erledigt
-    </label>
-  </li>
+  <div
+    class="flex items-center justify-between bg-white shadow p-3 rounded-lg"
+  >
+    <div class="flex items-center gap-3">
+      <input type="checkbox" v-model="task.done" @change="$emit('toggle', task)" />
+      <div>
+        <p
+          :class="{
+            'line-through text-gray-400': task.done,
+            'font-semibold': !task.done
+          }"
+        >
+          {{ task.title }}
+        </p>
+        <p class="text-sm text-gray-600">{{ task.description }}</p>
+      </div>
+    </div>
+    <button
+      class="text-red-500 hover:text-red-700"
+      @click="$emit('delete', task.id)"
+    >
+      🗑️
+    </button>
+  </div>
 </template>
 
-<script setup>
-defineProps({ task: Object })
-</script>
-
-<style scoped>
-.task-item {
-  border-bottom: 1px solid #ccc;
-  padding: 10px 0;
+<script>
+export default {
+  props: { task: Object }
 }
-</style>
+</script>
