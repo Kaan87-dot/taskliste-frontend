@@ -10,12 +10,6 @@
         </div>
       </header>
 
-      <!-- Fortschritt -->
-      <div class="progress">
-        <div class="bar" :style="{ width: progress + '%' }"></div>
-        <span class="progress-label">{{ progress }}%</span>
-      </div>
-
       <!-- Neue Aufgabe -->
       <section class="form add-form" @submit.prevent="addTask">
         <form>
@@ -28,6 +22,7 @@
             <option value="🍽️">🍽️ Kochen</option>
             <option value="🎮">🎮 Freizeit</option>
           </select>
+          <input class="input" type="date" v-model="newDueDate" />
           <button class="btn btn-primary" :disabled="adding || !newTitle.trim()">
             {{ adding ? 'Speichern…' : 'Hinzufügen' }}
           </button>
@@ -45,7 +40,7 @@
         <input class="input search" v-model="q" placeholder="Suchen…" />
       </section>
 
-      <!-- Aufgaben -->
+      <!-- Aufgabenliste -->
       <section class="list">
         <div v-if="loading" class="loading">Lade…</div>
         <template v-else>
@@ -65,30 +60,11 @@
         </template>
       </section>
 
-      <!-- Footer / Zusatz -->
+      <!-- Footer -->
       <footer class="footer">
-        <h2>📊 Übersicht</h2>
-        <p>{{ progress }}% erledigt</p>
-        <div class="circle-chart">
-          <svg viewBox="0 0 36 36">
-            <path
-              class="circle-bg"
-              d="M18 2.0845
-                 a 15.9155 15.9155 0 0 1 0 31.831
-                 a 15.9155 15.9155 0 0 1 0 -31.831"
-            />
-            <path
-              class="circle"
-              :stroke-dasharray="progress + ', 100'"
-              d="M18 2.0845
-                 a 15.9155 15.9155 0 0 1 0 31.831
-                 a 15.9155 15.9155 0 0 1 0 -31.831"
-            />
-            <text x="18" y="20.35" class="percentage">{{ progress }}%</text>
-          </svg>
-        </div>
         <p>{{ randomQuote }}</p>
         <p>📅 {{ today }}</p>
+        <p class="fact">🕒 Uhrzeit: {{ now }}</p>
       </footer>
     </div>
   </div>
@@ -105,6 +81,7 @@ export default {
       newTitle: '',
       newDescription: '',
       newCategory: '📚',
+      newDueDate: '',
       q: '',
       filter: 'all',
       loading: false,
@@ -119,15 +96,12 @@ export default {
         "✨ Kleine Schritte, große Wirkung!"
       ],
       randomQuote: "",
-      today: new Date().toLocaleDateString('de-DE', { weekday:'long', year:'numeric', month:'long', day:'numeric' })
+      today: new Date().toLocaleDateString('de-DE', { weekday:'long', year:'numeric', month:'long', day:'numeric' }),
+      now: new Date().toLocaleTimeString('de-DE')
     }
   },
   computed: {
     openCount() { return this.tasks.filter(t => !t.done).length },
-    progress() {
-      if (!this.tasks.length) return 0
-      return Math.round((this.tasks.filter(t => t.done).length / this.tasks.length) * 100)
-    },
     visibleTasks() {
       const q = this.q.trim().toLowerCase()
       let list = this.tasks
@@ -167,7 +141,8 @@ export default {
           body: JSON.stringify({
             title: this.newCategory + " " + this.newTitle.trim(),
             description: this.newDescription.trim(),
-            done: false
+            done: false,
+            dueDate: this.newDueDate || null
           })
         })
         if (!res.ok) throw new Error(`POST ${res.status}`)
@@ -175,6 +150,7 @@ export default {
         this.tasks.unshift(task)
         this.newTitle = ''
         this.newDescription = ''
+        this.newDueDate = ''
       } catch (e) {
         this.error = e.message
       } finally {
@@ -212,6 +188,9 @@ export default {
   },
   mounted() {
     this.randomQuote = this.quotes[Math.floor(Math.random()*this.quotes.length)]
+    setInterval(() => {
+      this.now = new Date().toLocaleTimeString('de-DE')
+    }, 1000)
     this.fetchTasks()
   }
 }
