@@ -41,6 +41,30 @@ body {
 .header h1 { margin:0; font-size: 34px; letter-spacing:.3px; display:flex; align-items:center; gap:10px; }
 .stats { display:flex; gap:10px; color:var(--muted); font-weight:600; }
 
+/* Fortschrittsbalken */
+.progress {
+  position: relative;
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  margin: 10px 0 20px;
+  overflow: hidden;
+}
+.bar {
+  height: 100%;
+  background: linear-gradient(90deg, #34d399, #10b981);
+  transition: width .4s;
+}
+.progress-label {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+}
+
 /* Controls */
 .form form { display:grid; grid-template-columns: 1fr 1fr 140px 140px auto; gap:10px; align-items:center; }
 .input {

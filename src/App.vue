@@ -10,6 +10,12 @@
         </div>
       </header>
 
+      <!-- Fortschrittsbalken -->
+      <div class="progress">
+        <div class="bar" :style="{ width: progress + '%' }"></div>
+        <span class="progress-label">{{ progress }}%</span>
+      </div>
+
       <!-- Neue Aufgabe -->
       <section class="form add-form" @submit.prevent="addTask">
         <form>
@@ -102,6 +108,10 @@ export default {
   },
   computed: {
     openCount() { return this.tasks.filter(t => !t.done).length },
+    progress() {
+      if (!this.tasks.length) return 0
+      return Math.round((this.tasks.filter(t => t.done).length / this.tasks.length) * 100)
+    },
     visibleTasks() {
       const q = this.q.trim().toLowerCase()
       let list = this.tasks
