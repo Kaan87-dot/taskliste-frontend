@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center justify-between bg-white shadow p-3 rounded-lg"
+    class="flex items-center justify-between bg-gray-50 shadow-sm p-3 rounded-lg hover:bg-gray-100"
   >
     <div class="flex items-center gap-3">
       <input type="checkbox" v-model="task.done" @change="$emit('toggle', task)" />
