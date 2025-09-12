@@ -119,6 +119,8 @@ body {
   font-size: 90px;
   margin: 20px 0;
   animation: bounce 1.2s infinite;
+  color: transparent;        /* Textfarbe ausblenden */
+  text-shadow: 0 0 0 #fff;   /* Emoji in normaler Farbe zeigen */
 }
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
