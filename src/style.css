@@ -41,7 +41,7 @@ body {
 .header h1 { margin:0; font-size: 34px; letter-spacing:.3px; display:flex; align-items:center; gap:10px; }
 .stats { display:flex; gap:10px; color:var(--muted); font-weight:600; }
 
-/* Progress */
+/* Progress bar (oben) */
 .progress { position:relative; height: 14px; border-radius:999px; background: rgba(255,255,255,.08); margin:10px 0 20px; overflow:hidden; }
 .bar { height:100%; background:linear-gradient(90deg,#34d399,#10b981); transition:width .4s; }
 .progress-label { position:absolute; right:10px; top:50%; transform:translateY(-50%); font-size:12px; font-weight:700; color:white; }
@@ -87,7 +87,7 @@ body {
   background: rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.12);
   border-radius:14px; padding: 14px;
-  margin-bottom: 12px; transition: transform .12s ease, background .2s, box-shadow .2s;
+  margin-bottom: 12px; transition: transform .12s ease, background-color .2s, box-shadow .2s;
 }
 .task-card:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.28); background: rgba(255,255,255,.09); }
 .task-card.done .task-title { text-decoration: line-through; color: var(--muted); }
@@ -105,7 +105,7 @@ body {
 .icon-btn {
   width:44px; height:44px; border-radius:12px; display:grid; place-items:center;
   border:1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.08);
-  cursor:pointer; transition: transform .06s, filter .2s, background .2s;
+  cursor:pointer; transition: transform .06s, filter .2s, background-color .2s;
 }
 .icon-btn:hover { filter: brightness(1.1); }
 .icon-btn:active { transform: translateY(1px); }
@@ -114,11 +114,16 @@ body {
 /* Footer */
 .footer { margin-top:40px; padding:20px; text-align:center; color:var(--muted); font-size:14px; font-style:italic; }
 
-/* Kreisdiagramm */
-.circle-chart { width: 120px; margin: 20px auto; }
-.circle-bg { fill:none; stroke:#eee; stroke-width:3.8; }
-.circle { fill:none; stroke: var(--primary); stroke-width:2.8; stroke-linecap:round; }
-.percentage { fill: var(--text); font-size:0.5em; text-anchor:middle; }
+/* Big Emoji Smiley */
+.big-emoji {
+  font-size: 90px;
+  margin: 20px 0;
+  animation: bounce 1.2s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
 
 /* Animations */
 .fade-enter-active, .fade-leave-active { transition: all .25s ease; }
