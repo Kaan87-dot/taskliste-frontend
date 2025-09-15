@@ -65,11 +65,11 @@
           <!-- Transition-Effekt beim Einfügen/Löschen -->
           <transition-group name="fade" tag="div">
             <TaskItem
-              v-for="t in visibleTasks"   <!-- Aufgaben mit v-for anzeigen -->
+              v-for="t in visibleTasks"
               :key="t.id"
               :task="t"
-              @toggle="toggleTask"       <!-- Event: erledigt/unerledigt -->
-              @delete="deleteTask"       <!-- Event: löschen -->
+              @toggle="toggleTask"     
+              @delete="deleteTask"     
             />
           </transition-group>
 
