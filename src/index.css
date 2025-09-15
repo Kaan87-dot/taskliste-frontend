@@ -1,7 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@tailwind base;        /* Tailwind-Basis-Styles laden (z. B. Reset, Standardisierung) */
+@tailwind components;  /* Tailwind-Komponenten (vorgefertigte Klassen) laden */
+@tailwind utilities;   /* Tailwind-Utilities (z. B. margin, padding, Farben, Flexbox) laden */
 
 body {
-  @apply bg-gray-100 text-gray-900;
+  /* Für den Body Standard-Hintergrund und Textfarbe setzen */
+  @apply bg-gray-100 text-gray-900; 
+  /* @apply bedeutet: benutze Tailwind-Klassen direkt in CSS */
+  /* bg-gray-100 = hellgrauer Hintergrund */
+  /* text-gray-900 = sehr dunkle Schriftfarbe */
 }
